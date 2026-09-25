@@ -14,6 +14,7 @@
     --rule:#E4E8DE;
     --card:#F7F6F1;
     --edge:#E0E5D8;
+    --page:#FFFFFF;
   }
   @media (prefers-color-scheme: dark){
     :root{
@@ -25,12 +26,13 @@
       --rule:#3A3F35;
       --card:#232720;
       --edge:#343930;
+      --page:#191919;
     }
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{
     width:100%;min-height:100%;
-    background:transparent;          /* Notion's page shows through around the card */
+    background:var(--page);          /* matches Notion's page, so no white frame in dark mode */
   }
   body{
     color:var(--ink);
