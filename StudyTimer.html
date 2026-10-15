@@ -198,7 +198,7 @@ button.act.primary:hover{background:rgba(255,255,255,.16);color:var(--accent)}
     short:{mins:5,  col:'var(--short)', msg:'Stand up. Look at something further away than a screen.'},
     long: {mins:15, col:'var(--long)',  msg:'Properly away from the desk. You have earned it.'}
   };
-  var mode='focus', left=MODES.focus.mins*60, total=left, tick=null, done=0;
+  var mode='focus', left=MODES.focus.mins*60, total=left, tick=null, done=0, endAt=0;
   var t=document.getElementById('t'), bar=document.getElementById('bar'),
       go=document.getElementById('go'), rs=document.getElementById('rs'),
       lbl=document.getElementById('lbl'), dots=document.getElementById('dots'),
@@ -232,20 +232,34 @@ button.act.primary:hover{background:rgba(255,255,255,.16);color:var(--accent)}
     if(!keepRunning) stop();
     paint();
   }
-  function stop(){ clearInterval(tick); tick=null; go.textContent='Start'; }
+  function stop(){ clearInterval(tick); tick=null; endAt=0; go.textContent='Start'; }
   function finish(){
     stop();
     if(mode==='focus'){ done++; drawDots(); setMode(done%4===0?'long':'short'); }
     else { setMode('focus'); }
     lbl.textContent = mode==='focus' ? 'Back to it.' : MODES[mode].msg;
   }
+  // Read the clock, never count ticks. A browser throttles a background tab to
+  // roughly one tick a minute, and a counted timer would therefore run slow in
+  // exactly the case this thing is for: you start a block and switch away to
+  // do the work. Phones suspend the page outright, which stops a counter dead.
+  function sync(){
+    if(!endAt) return;
+    left = Math.max(0, Math.round((endAt - Date.now())/1000));
+    paint();
+    if(left===0) finish();
+  }
+
   go.onclick=function(){
-    if(tick){ stop(); return; }
+    if(tick){ sync(); stop(); return; }          // pause on what the clock says
+    endAt = Date.now() + left*1000;
     go.textContent='Pause';
-    tick=setInterval(function(){
-      left--; if(left<=0){ left=0; paint(); finish(); return; } paint();
-    },1000);
+    tick=setInterval(sync,250);
   };
+
+  // Correct the moment the tab or app comes back, rather than on the next tick.
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) sync(); });
+  window.addEventListener('pageshow',sync);
   rs.onclick=function(){ stop(); left=total; paint(); };
   [].forEach.call(document.querySelectorAll('.tab'),function(b){
     b.onclick=function(){ setMode(b.dataset.m); };
