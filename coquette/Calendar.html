@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calendar</title>
+<style>
+  :root{
+    --ink:#4F3340;
+    --muted:#786066;
+    --rose:#8E4059;
+    --rose-soft:#FBE4EA;
+    --on-rose:#FFFFFF;
+    --rule:#F2E0DE;
+    --card:#FDF1EF;
+    --edge:#F0DCDA;
+    --page:#FFFFFF;
+    --petals:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22200%22%20viewBox%3D%220%200%20200%20200%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%238E4059%22%20stroke-width%3D%221.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M38%2048c0%207.6%205.4%2013%2012%2013s12-5.4%2012-13c-3.2%202.2-5.6%202-7.6-1-2.2%203.2-6.6%203.2-8.8%200-2%203-4.4%203.2-7.6%201z%22%2F%3E%3Cpath%20d%3D%22M50%2061v18%22%2F%3E%3Cpath%20d%3D%22M50%2073.5c-6.8-1.2-10-4.8-10-9.8%205%200%208%203.6%2010%209.8z%22%2F%3E%3Cpath%20d%3D%22M50%2077c6.8-1.2%2010-4.8%2010-9.8-5%200-8%203.6-10%209.8z%22%2F%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%22158%22%20r%3D%221.9%22%2F%3E%3Cellipse%20cx%3D%2246%22%20cy%3D%22152.2%22%20rx%3D%222.7%22%20ry%3D%223.8%22%2F%3E%3Cellipse%20cx%3D%2251.5%22%20cy%3D%22156.2%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%2872%2051.5%20156.2%29%22%2F%3E%3Cellipse%20cx%3D%2249.4%22%20cy%3D%22162.7%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%28144%2049.4%20162.7%29%22%2F%3E%3Cellipse%20cx%3D%2242.6%22%20cy%3D%22162.7%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%28216%2042.6%20162.7%29%22%2F%3E%3Cellipse%20cx%3D%2240.5%22%20cy%3D%22156.2%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%28288%2040.5%20156.2%29%22%2F%3E%3Cpath%20d%3D%22M146%20132c-5.6-5.4-10-3.8-8.8%200-1%203.8%203.2%205.4%208.8%200z%22%2F%3E%3Cpath%20d%3D%22M146%20132c5.6-5.4%2010-3.8%208.8%200%201%203.8-3.2%205.4-8.8%200z%22%2F%3E%3Crect%20x%3D%22144.5%22%20y%3D%22130.5%22%20width%3D%223%22%20height%3D%223%22%20rx%3D%221.2%22%20fill%3D%22%238E4059%22%20stroke%3D%22none%22%2F%3E%3Cpath%20d%3D%22M144.6%20133.6l-1.8%205.6M147.4%20133.6l1.8%205.6%22%2F%3E%3Cpath%20d%3D%22M166%2054c-1.3%206.4-5.2%2010-11.2%2010.8%201.3-6.4%205.2-10%2011.2-10.8z%22%2F%3E%3Cpath%20d%3D%22M160%20118c6%201.6%209%205.6%209.8%2011.8-6-1.1-9-5-9.8-11.8z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --petal-opacity:.20;
+    --wash:linear-gradient(150deg,rgba(251,228,234,.55),rgba(253,241,239,.80));
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#F2DDDF;
+      --muted:#AD939B;
+      --rose:#F0B9C8;
+      --rose-soft:#3A2932;
+      --on-rose:#241C20;
+      --rule:#3A2B30;
+      --card:#241C20;
+      --edge:#332529;
+      --page:#191919;
+      --petals:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22200%22%20viewBox%3D%220%200%20200%20200%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23F0B9C8%22%20stroke-width%3D%221.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M38%2048c0%207.6%205.4%2013%2012%2013s12-5.4%2012-13c-3.2%202.2-5.6%202-7.6-1-2.2%203.2-6.6%203.2-8.8%200-2%203-4.4%203.2-7.6%201z%22%2F%3E%3Cpath%20d%3D%22M50%2061v18%22%2F%3E%3Cpath%20d%3D%22M50%2073.5c-6.8-1.2-10-4.8-10-9.8%205%200%208%203.6%2010%209.8z%22%2F%3E%3Cpath%20d%3D%22M50%2077c6.8-1.2%2010-4.8%2010-9.8-5%200-8%203.6-10%209.8z%22%2F%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%22158%22%20r%3D%221.9%22%2F%3E%3Cellipse%20cx%3D%2246%22%20cy%3D%22152.2%22%20rx%3D%222.7%22%20ry%3D%223.8%22%2F%3E%3Cellipse%20cx%3D%2251.5%22%20cy%3D%22156.2%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%2872%2051.5%20156.2%29%22%2F%3E%3Cellipse%20cx%3D%2249.4%22%20cy%3D%22162.7%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%28144%2049.4%20162.7%29%22%2F%3E%3Cellipse%20cx%3D%2242.6%22%20cy%3D%22162.7%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%28216%2042.6%20162.7%29%22%2F%3E%3Cellipse%20cx%3D%2240.5%22%20cy%3D%22156.2%22%20rx%3D%222.7%22%20ry%3D%223.8%22%20transform%3D%22rotate%28288%2040.5%20156.2%29%22%2F%3E%3Cpath%20d%3D%22M146%20132c-5.6-5.4-10-3.8-8.8%200-1%203.8%203.2%205.4%208.8%200z%22%2F%3E%3Cpath%20d%3D%22M146%20132c5.6-5.4%2010-3.8%208.8%200%201%203.8-3.2%205.4-8.8%200z%22%2F%3E%3Crect%20x%3D%22144.5%22%20y%3D%22130.5%22%20width%3D%223%22%20height%3D%223%22%20rx%3D%221.2%22%20fill%3D%22%23F0B9C8%22%20stroke%3D%22none%22%2F%3E%3Cpath%20d%3D%22M144.6%20133.6l-1.8%205.6M147.4%20133.6l1.8%205.6%22%2F%3E%3Cpath%20d%3D%22M166%2054c-1.3%206.4-5.2%2010-11.2%2010.8%201.3-6.4%205.2-10%2011.2-10.8z%22%2F%3E%3Cpath%20d%3D%22M160%20118c6%201.6%209%205.6%209.8%2011.8-6-1.1-9-5-9.8-11.8z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      --petal-opacity:.16;
+      --wash:linear-gradient(150deg,rgba(58,41,50,.55),rgba(36,28,32,.80));
+    }
+  }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    width:100%;min-height:100%;
+    background:var(--page);          /* matches Notion's page, so no white frame in dark mode */
+  }
+  body{
+    color:var(--ink);
+    font-family:ui-sans-serif,-apple-system,'Segoe UI',Roboto,sans-serif;
+    padding:2px;display:flex;justify-content:center;align-items:stretch;
+  }
+  .cal{
+    width:100%;
+    background:var(--wash),var(--card);
+    overflow:hidden;
+    border:1px solid var(--edge);
+    border-radius:14px;
+    padding:16px 16px 14px;
+    position:relative;
+  }
+  .cal::before{                       /* small rose tick, top-centre */
+    content:"";position:absolute;top:0;left:50%;
+    width:34px;height:2px;margin-left:-17px;
+    background:var(--rose);opacity:.5;
+    border-radius:0 0 2px 2px;
+  }
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+  .title{font-family:Georgia,'Iowan Old Style',serif;font-size:16px;letter-spacing:.02em}
+  .title .yr{color:var(--muted);font-style:italic;margin-left:5px;font-size:13px}
+  .nav{display:flex;gap:2px}
+  button{
+    border:0;background:transparent;color:var(--muted);cursor:pointer;
+    width:22px;height:22px;border-radius:6px;font-size:11px;line-height:1;
+    display:grid;place-items:center;transition:background .15s,color .15s;
+  }
+  button:hover{background:var(--rose-soft);color:var(--rose)}
+  .rule{height:1px;background:var(--rule);margin:9px 0 7px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px}
+  .dow{
+    font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--rose);text-align:center;padding-bottom:5px;
+  }
+  .cell{
+    aspect-ratio:1;display:grid;place-items:center;
+    font-size:12px;border-radius:50%;font-variant-numeric:tabular-nums;
+  }
+  .out{color:var(--muted);opacity:.45}
+  .today{background:var(--rose);color:var(--on-rose);font-weight:600}
+  .foot{
+    margin-top:9px;text-align:center;font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);min-height:12px;
+  }
+  .foot b{color:var(--rose);font-weight:500;cursor:pointer}
+  .wrap::after,.cal::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;
+    background:var(--petals) repeat center/200px 200px;
+    opacity:var(--petal-opacity);pointer-events:none;z-index:0;
+  }
+  .wrap>*,.cal>*{position:relative;z-index:1}
+</style>
+</head>
+<body>
+  <div class="cal">
+    <header>
+      <div class="title"><span id="mn"></span><span class="yr" id="yr"></span></div>
+      <div class="nav">
+        <button id="prev" aria-label="Previous month">&#9664;</button>
+        <button id="next" aria-label="Next month">&#9654;</button>
+      </div>
+    </header>
+    <div class="rule"></div>
+    <div class="grid" id="dows"></div>
+    <div class="grid" id="days"></div>
+    <div class="foot" id="foot"></div>
+  </div>
+<script>
+(function(){
+  var mons=['January','February','March','April','May','June','July',
+            'August','September','October','November','December'];
+  var dows=['M','T','W','T','F','S','S'];
+  var now=new Date();
+  var today={y:now.getFullYear(),m:now.getMonth(),d:now.getDate()};
+  var view={y:today.y,m:today.m};
+
+  var dowsEl=document.getElementById('dows');
+  dows.forEach(function(x){
+    var e=document.createElement('div');e.className='dow';e.textContent=x;dowsEl.appendChild(e);
+  });
+
+  function cell(g,n,out,isToday){
+    var e=document.createElement('div');
+    e.className='cell'+(out?' out':'')+(isToday?' today':'');
+    e.textContent=n; g.appendChild(e);
+  }
+
+  function draw(){
+    document.getElementById('mn').textContent=mons[view.m];
+    document.getElementById('yr').textContent=view.y;
+    var g=document.getElementById('days'); g.innerHTML='';
+
+    var first=new Date(view.y,view.m,1).getDay();
+    var lead=(first+6)%7;                                  // Monday-first
+    var dim=new Date(view.y,view.m+1,0).getDate();
+    var prevDim=new Date(view.y,view.m,0).getDate();
+
+    for(var i=lead;i>0;i--) cell(g,prevDim-i+1,true,false);
+    for(var d=1;d<=dim;d++){
+      cell(g,d,false,(d===today.d&&view.m===today.m&&view.y===today.y));
+    }
+    var tail=(7-((lead+dim)%7))%7;
+    for(var t=1;t<=tail;t++) cell(g,t,true,false);
+
+    var same=(view.y===today.y&&view.m===today.m);
+    document.getElementById('foot').innerHTML = same ? '' : '<b id="back">Back to today</b>';
+    var b=document.getElementById('back');
+    if(b) b.onclick=function(){view={y:today.y,m:today.m};draw();};
+  }
+
+  document.getElementById('prev').onclick=function(){ if(--view.m<0){view.m=11;view.y--} draw(); };
+  document.getElementById('next').onclick=function(){ if(++view.m>11){view.m=0;view.y++} draw(); };
+  draw();
+
+  setInterval(function(){                                  // roll over at midnight
+    var n=new Date();
+    if(n.getDate()!==today.d){
+      today={y:n.getFullYear(),m:n.getMonth(),d:n.getDate()};
+      draw();
+    }
+  },60000);
+})();
+</script>
+</body>
+</html>
