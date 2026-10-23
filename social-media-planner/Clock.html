@@ -19,21 +19,23 @@
   @media (prefers-color-scheme: dark){ :root{ --page:#191919; } }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
+  /* Full bleed: the card IS the embed. Any margin, radius or shadow shows as a
+     grey surround inside Notion's iframe, which is what Bilal saw. */
   body{
-    background:var(--page);
+    background:var(--deep);
     display:flex;align-items:center;justify-content:center;
-    padding:10px;
+    padding:0;
     font-family:ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
   .card{
-    width:100%;max-width:520px;
-    border-radius:20px;
+    width:100%;height:100%;
+    border-radius:0;
     padding:26px 30px;
+    display:flex;flex-direction:column;justify-content:center;
     background:
       radial-gradient(520px 220px at 88% -30%, rgba(53,160,160,.55), transparent 62%),
       linear-gradient(135deg,var(--deep),var(--petrol));
-    box-shadow:0 10px 30px rgba(12,46,54,.22);
     position:relative;overflow:hidden;
   }
   .card:after{                     /* the same dot grain as the covers */
